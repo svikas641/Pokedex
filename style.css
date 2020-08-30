@@ -82,7 +82,7 @@ header p {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
 }
 
@@ -164,7 +164,7 @@ img {
   border-radius: 20px;
   position: relative;
   margin: 5px 0;
-  height: 15px;
+  height: 10px;
   width: 200px;
 }
 
