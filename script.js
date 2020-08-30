@@ -55,8 +55,6 @@ async function fetchPokemonData(pokemon){
   setBgColor(cardEl,tempArr);
   cardEl.addEventListener('click', async function () {
     promptBox(pokemonData);
-    await wait(50);
-    populateStats(pokemonData);
   })
 }
 
@@ -92,7 +90,7 @@ async function destroyPopup(popup) {
   popup.classList.remove('open');
   await wait(200);
   // stop speaking when cancel button pressed
-    speechSynthesis.cancel();
+  speechSynthesis.cancel();
   // remove the popup entirely!
   popup.remove();
   /* eslint-disable no-param-reassign */
@@ -119,7 +117,7 @@ async function promptBox(pokemonData) {
               <div class="progress">
               <div class="progress-done hp" data-done="70">
               </div>
-            </div>
+              </div>
             </div>
             <div class="progress-bar">
               <div>ATK: &nbsp;</div>
@@ -136,21 +134,22 @@ async function promptBox(pokemonData) {
               </div>
             </div>
             <div class="progress-bar">
-              <div>SPD: &nbsp;</div>
-                <div class="progress">
+            <div>SPD: &nbsp;</div>
+            <div class="progress">
                   <div class="progress-done spd" data-done="70"></div>
-                </div>
+                  </div>
               </div>
-            </div>
+              </div>
       </div>
-    `);
+      `);
 
-  const locations = await fetchLocation(pokemonData)
+
+      const locations = await fetchLocation(pokemonData)
   const twoMoves = randomMove(pokemonData)
 
   //speak
   msg.text = `${name} is a ${types[0].type.name} type pokemon. Its regions are ${locations.toString()} and its speacial moves are ${twoMoves.toString()}`;
-    speak();
+  speak();
 
   // Cancel Button
   const skipButton = document.createElement('button');
@@ -164,13 +163,16 @@ async function promptBox(pokemonData) {
       destroyPopup(popup);
     },
     { once: true }
-  );
+    );
 
-  document.body.appendChild(popup);
+    document.body.appendChild(popup);
 
-  // put a very small timeout before we add the open class
+
+
+    // put a very small timeout before we add the open class
   await wait(50);
   popup.classList.add('open');
+  populateStats(pokemonData);
 }
 
 // function to populate stats
