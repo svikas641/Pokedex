@@ -43,10 +43,6 @@ body {
 .wrapper {
   box-shadow: 0 0 3px 5px rgba(0, 0, 0, 0.08653);
 }
-a {
-  color: var(--blue);
-  text-decoration-color: var(--yellow);
-}
 
 a.button,
 button,
@@ -65,48 +61,14 @@ input[type="button"] {
   outline-color: var(--pink);
 }
 
-fieldset {
-  border: 1px solid black;
-}
-
-input:not([type="checkbox"]):not([type="radio"]),
-textarea,
-select {
-  display: block;
-  padding: 1rem;
-  border: 1px solid var(--grey);
-}
-
-.success {
-  border: 1px solid red;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: white;
-  margin-top: 0;
-  line-height: 1;
-  text-shadow: var(--text-shadow);
-}
-.wrapper h1,
-.wrapper h2,
-.wrapper h3,
-.wrapper h4,
-.wrapper h5,
-.wrapper h6 {
-  color: var(--black);
-  text-shadow: none;
-}
-
 header h1 {
   font-family: "Pacifico", cursive;
   font-size: 72px;
   text-align: center;
   font-weight: 500;
+  line-height: 1;
+  color: var(--black);
+  margin-top: 0;
 }
 
 header p {
@@ -114,6 +76,7 @@ header p {
   font-weight: 500;
   color: white;
   background: var(--blue);
+  box-shadow: var(--box-shadow);
 }
 
 .cards {
