@@ -53,8 +53,10 @@ async function fetchPokemonData(pokemon){
   cards.insertAdjacentHTML('afterbegin',cardData);
   const cardEl =  document.querySelector('.card');
   setBgColor(cardEl,tempArr);
-  cardEl.addEventListener('click', function () {
+  cardEl.addEventListener('click', async function () {
     promptBox(pokemonData);
+    await wait(50);
+    populateStats(pokemonData);
   })
 }
 
@@ -81,36 +83,44 @@ async function promptBox(pokemonData) {
     `<div class="prompt">
       <div class="img-section">
             <img src="https://pokeres.bastionbot.org/images/pokemon/${id}.png" alt="Pokemon"/>
-          </div>
-          <div class="info">
+      </div>
+        <div class="info">
             <p class="name">${name}</p>
+            <p>Base stats</p>
             <div class="progress-bar">
-              <div>HP: &nbsp;</div>
+              <div>HP: &nbsp;&nbsp;</div>
               <div class="progress">
-              <div class="progress-done" data-done="70">
+              <div class="progress-done hp" data-done="70">
+              </div>
+            </div>
+            </div>
+            <div class="progress-bar">
+              <div>ATK: &nbsp;</div>
+              <div class="progress">
+              <div class="progress-done atk" data-done="70">
+              </div>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div>DEF: &nbsp;</div>
+              <div class="progress">
+              <div class="progress-done def" data-done="70">
+              </div>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div>SPD: &nbsp;</div>
+              <div class="progress">
+              <div class="progress-done spd" data-done="70">
               </div>
         </div>
             </div>
             <div class="progress-bar">
-              <div>HP: &nbsp;</div>
+              <div>EXP: &nbsp;</div>
               <div class="progress">
-              <div class="progress-done" data-done="70">
+                <div class="progress-done exp" data-done="70">
+                </div>
               </div>
-        </div>
-            </div>
-            <div class="progress-bar">
-              <div>HP: &nbsp;</div>
-              <div class="progress">
-              <div class="progress-done" data-done="70">
-              </div>
-        </div>
-            </div>
-            <div class="progress-bar">
-              <div>HP: &nbsp;</div>
-              <div class="progress">
-              <div class="progress-done" data-done="70">
-              </div>
-        </div>
             </div>
             </div>
     </div>
@@ -140,14 +150,39 @@ async function promptBox(pokemonData) {
 const playButton = document.querySelector('button');
 playButton.addEventListener('click',speak);
 
-//
+// function to populate stats
 
-function pr(){
-  const progress = document.querySelector('.progress-done');
+function populateStats({ base_experience, stats }){
+  const hp = document.querySelector('.hp');
+  const atk = document.querySelector('.atk');
+  const def = document.querySelector('.def');
+  const spd = document.querySelector('.spd');
+  const exp = document.querySelector('.exp');
 
-  progress.style.width = progress.getAttribute('data-done') + '%';
-  progress.style.opacity = 1;
+  hp.setAttribute('data-done', stats[0].base_stat);
+  hp.style.width = hp.getAttribute('data-done') + '%';
+  hp.style.opacity = 1;
+  hp.style.background = '#f42a28';
 
-  progress.setAttribute('data-done', 50);
-  progress.style.width = progress.getAttribute('data-done') + '%';
+  atk.setAttribute('data-done', stats[1].base_stat);
+  atk.style.width = atk.getAttribute('data-done') + '%';
+  atk.style.opacity = 1;
+  atk.style.background = '#f8d030';
+
+  def.setAttribute('data-done', stats[2].base_stat);
+  def.style.width = def.getAttribute('data-done') + '%';
+  def.style.opacity = 1;
+  def.style.background = '#37a5c6';
+
+  spd.setAttribute('data-done', stats[5].base_stat);
+  spd.style.width = spd.getAttribute('data-done') + '%';
+  spd.style.opacity = 1;
+  spd.style.background = '#7038f8';
+
+  exp.setAttribute('data-done', base_experience);
+  exp.style.width = exp.getAttribute('data-done') + '%';
+  exp.style.opacity = 1;
+  exp.style.background = '#61e846';
+
+
 }
