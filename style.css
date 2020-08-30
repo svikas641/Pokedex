@@ -55,6 +55,7 @@ input[type="button"] {
   text-decoration: none;
   font-weight: 600;
   font-size: 2rem;
+  cursor: pointer;
 }
 
 :focus {
@@ -127,8 +128,7 @@ img {
   box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
-  /* margin: auto; */
-  width: 250px;
+  width: 300px;
   transition: all 0.2s;
   --scale: 0.3;
   transform: scale(var(--scale));
@@ -136,6 +136,9 @@ img {
 
 .name {
   text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-transform: capitalize;
 }
 
 .img-section {
@@ -145,7 +148,6 @@ img {
 }
 
 .info {
-  height: 300px;
   background: #2e2e2e;
   color: white;
   font-family: sans-serif;
@@ -163,12 +165,11 @@ img {
   position: relative;
   margin: 5px 0;
   height: 15px;
-  width: 150px;
+  width: 200px;
 }
 
 .progress-done {
-  background: linear-gradient(to left, #f2709c, #ff9472);
-  border-radius: 20px;
+  border-radius: 30px;
   color: #fff;
   display: flex;
   height: 100%;
@@ -179,8 +180,8 @@ img {
 
 .prompt img {
   margin-left: 20%;
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
 }
 
 .popup.open .prompt {
