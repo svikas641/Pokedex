@@ -1,7 +1,7 @@
-const baseURL = `https://pokeapi.co/api/v2/pokemon?limit=4`;
+const baseURL = `https://pokeapi.co/api/v2/pokemon?limit=8`;
 const cards = document.querySelector('.cards');
 const msg = new SpeechSynthesisUtterance();
-msg.text = 'Welcome to Pokedex';
+msg.text = '';
 
 function speak(){
   speechSynthesis.speak(msg);
@@ -60,12 +60,39 @@ async function fetchPokemonData(pokemon){
   })
 }
 
+// fetch pokemon location
+async function fetchLocation({ location_area_encounters }) {
+  const resp = await fetch(location_area_encounters);
+  const pokemonLocation = await resp.json();
+  let locations = [];
+  if (pokemonLocation.length === 0){
+    locations = `not found`;
+  } else {
+    pokemonLocation.forEach(location => locations.push(location.location_area.name))
+  }
+  return locations;
+}
+
+// generate two random moves
+function randomMove({ moves }){
+  let allMoves = [];
+  moves.forEach(move => allMoves.push(move.move.name))
+  let twoMoves = [];
+  for(let i = 0; i < 2; i++) {
+    twoMoves.push(allMoves[Math.floor(Math.random() * allMoves.length)])
+  }
+  return twoMoves;
+}
+
+
 //on page load
 getPokeData();
 
 async function destroyPopup(popup) {
   popup.classList.remove('open');
-  await wait(1000);
+  await wait(200);
+  // stop speaking when cancel button pressed
+    speechSynthesis.cancel();
   // remove the popup entirely!
   popup.remove();
   /* eslint-disable no-param-reassign */
@@ -110,21 +137,20 @@ async function promptBox(pokemonData) {
             </div>
             <div class="progress-bar">
               <div>SPD: &nbsp;</div>
-              <div class="progress">
-              <div class="progress-done spd" data-done="70">
-              </div>
-        </div>
-            </div>
-            <div class="progress-bar">
-              <div>EXP: &nbsp;</div>
-              <div class="progress">
-                <div class="progress-done exp" data-done="70">
+                <div class="progress">
+                  <div class="progress-done spd" data-done="70"></div>
                 </div>
               </div>
             </div>
-            </div>
-    </div>
+      </div>
     `);
+
+  const locations = await fetchLocation(pokemonData)
+  const twoMoves = randomMove(pokemonData)
+
+  //speak
+  msg.text = `${name} is a ${types[0].type.name} type pokemon. Its regions are ${locations.toString()} and its speacial moves are ${twoMoves.toString()}`;
+    speak();
 
   // Cancel Button
   const skipButton = document.createElement('button');
@@ -147,12 +173,9 @@ async function promptBox(pokemonData) {
   popup.classList.add('open');
 }
 
-const playButton = document.querySelector('button');
-playButton.addEventListener('click',speak);
-
 // function to populate stats
 
-function populateStats({ base_experience, stats }){
+function populateStats({ stats }){
   const hp = document.querySelector('.hp');
   const atk = document.querySelector('.atk');
   const def = document.querySelector('.def');
@@ -178,11 +201,5 @@ function populateStats({ base_experience, stats }){
   spd.style.width = spd.getAttribute('data-done') + '%';
   spd.style.opacity = 1;
   spd.style.background = '#7038f8';
-
-  exp.setAttribute('data-done', base_experience);
-  exp.style.width = exp.getAttribute('data-done') + '%';
-  exp.style.opacity = 1;
-  exp.style.background = '#61e846';
-
 
 }
