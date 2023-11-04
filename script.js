@@ -1,4 +1,4 @@
-const baseURL = `https://pokeapi.co/api/v2/pokemon?limit=8`;
+const baseURL = `https://pokeapi.co/api/v2/pokemon?limit=100`;
 const cards = document.querySelector('.cards');
 const msg = new SpeechSynthesisUtterance();
 msg.text = '';
@@ -11,10 +11,27 @@ function wait(ms = 0) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function getRandomElements(array, count) {
+  const randomElements = [];
+  const indices = new Set();
+
+  while (randomElements.length < count) {
+    const randomIndex = Math.floor(Math.random() * array.length);
+
+    if (!indices.has(randomIndex)) {
+      indices.add(randomIndex);
+      randomElements.push(array[randomIndex]);
+    }
+  }
+
+  return randomElements;
+}
+
 async function getPokeData(){
   const res = await fetch(baseURL);
   const data = await res.json();
-  data.results.forEach(pokemon => {
+  const pokes = getRandomElements(data.results, 8)
+  pokes.forEach(pokemon => {
     fetchPokemonData(pokemon);
   })
 }
