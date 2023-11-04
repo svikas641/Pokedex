@@ -107,7 +107,7 @@ async function promptBox(pokemonData) {
     'afterbegin',
     `<div class="prompt">
       <div class="img-section">
-            <img src="https://pokeres.bastionbot.org/images/pokemon/${id}.png" alt="Pokemon"/>
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png" alt="Pokemon"/>
       </div>
         <div class="info">
             <p class="name">${name}</p>
