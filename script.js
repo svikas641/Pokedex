@@ -45,7 +45,7 @@ async function fetchPokemonData(pokemon){
   const tempArr = [];
   types.forEach(element => tempArr.push(element.type.name));
   const cardData = `<div class="card">
-  <img src="https://pokeres.bastionbot.org/images/pokemon/${id}.png" alt="${name}"/>
+  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png" alt="${name}"/>
   ${name}
   <br>
   ${tempArr}
